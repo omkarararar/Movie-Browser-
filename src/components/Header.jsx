@@ -1,3 +1,10 @@
+/*
+ * Header Component - The navigation bar at the top of every page
+ * 
+ * This shows the logo, search bar, favorites button, and theme toggle.
+ * It sticks to the top when you scroll so it's always accessible.
+ */
+
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
@@ -5,18 +12,21 @@ import { useFavorites } from '../context/FavoritesContext';
 
 const Header = ({ onSearch }) => {
     const [searchQuery, setSearchQuery] = useState('');
+    const [isSearchFocused, setIsSearchFocused] = useState(false);
     const { theme, toggleTheme } = useTheme();
     const { favorites } = useFavorites();
     const navigate = useNavigate();
 
-    // Debounce search
+    // Debounce search - wait 300ms after the user stops typing before searching
+    // This prevents making an API call on every single keystroke (which would be wasteful)
     useEffect(() => {
         const timer = setTimeout(() => {
             if (onSearch) {
                 onSearch(searchQuery);
             }
-        }, 300);
+        }, 300); // Wait 300 milliseconds
 
+        // Clean up the timer if the user types again before 300ms is up
         return () => clearTimeout(timer);
     }, [searchQuery, onSearch]);
 
@@ -26,23 +36,25 @@ const Header = ({ onSearch }) => {
                 <div className="flex items-center justify-between h-16">
                     {/* Logo */}
                     <Link to="/" className="flex items-center space-x-2 group">
-                        <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent group-hover:from-purple-600 group-hover:to-blue-600 transition-all">
+                        <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent group-hover:from-purple-600 group-hover:to-blue-600 transition-all duration-300">
                             🎬 GrantifyMovie
                         </div>
                     </Link>
 
-                    {/* Search Bar */}
+                    {/* Search Bar with animation */}
                     <div className="flex-1 max-w-xl mx-8 hidden md:block">
-                        <div className="relative">
+                        <div className={`relative transition-all duration-300 ${isSearchFocused ? 'scale-105' : 'scale-100'}`}>
                             <input
                                 type="text"
                                 placeholder="Search movies..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full px-4 py-2 pl-10 pr-4 rounded-full border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                                onFocus={() => setIsSearchFocused(true)}
+                                onBlur={() => setIsSearchFocused(false)}
+                                className="w-full px-4 py-2 pl-10 pr-4 rounded-full border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
                             />
                             <svg
-                                className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
+                                className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 transition-all duration-300 ${isSearchFocused ? 'rotate-90 text-blue-500' : 'rotate-0'}`}
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"

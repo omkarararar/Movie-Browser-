@@ -15,6 +15,12 @@ A fully responsive movie browsing web application built with React.js, Tailwind 
 - 📱 Fully responsive design (mobile-first)
 - ⚡ Fast page navigation with React Router
 - 🎨 Smooth animations and loading states
+- ✨ Interactive components with 3D effects (inspired by [reactbits.dev](https://reactbits.dev))
+  - 3D card tilt following mouse movement
+  - Toast notifications with slide-in animations
+  - Pulse animations on favorite actions
+  - Glowing rating badges
+  - Animated search bar with icon rotation
 - 🚨 Comprehensive error handling
 
 ## 🛠️ Tech Stack
@@ -139,28 +145,6 @@ movie-browsing-website/
 | `VITE_TMDB_BASE_URL` | TMDB API base URL | `https://api.themoviedb.org/3` |
 | `VITE_TMDB_IMAGE_BASE_URL` | TMDB image base URL | `https://image.tmdb.org/t/p` |
 
-## 🐛 Troubleshooting
-
-### API Key Issues
-
-If you see "Invalid API key" errors:
-1. Verify your API key is correct in `.env`
-2. Ensure the `.env` file is in the root directory
-3. Restart the development server after changing `.env`
-
-### Build Errors
-
-If you encounter build errors:
-1. Delete `node_modules` and `package-lock.json`
-2. Run `npm install` again
-3. Clear Vite cache: `rm -rf .vite`
-
-### Images Not Loading
-
-If movie posters/images don't load:
-1. Check your internet connection
-2. Verify TMDB API is accessible
-3. Check browser console for CORS errors
 
 ## 📝 License
 
@@ -169,13 +153,8 @@ This project is open source and available under the MIT License.
 ## 🙏 Acknowledgments
 
 - Movie data provided by [The Movie Database (TMDB)](https://www.themoviedb.org/)
+- Interactive animations inspired by [React Bits](https://reactbits.dev/)
 - Icons from [Heroicons](https://heroicons.com/)
 - Built with [Vite](https://vitejs.dev/) and [React](https://react.dev/)
 
-## 📧 Contact
 
-For questions or feedback, please open an issue on GitHub.
-
----
-
-**Enjoy browsing movies! 🎬🍿**
