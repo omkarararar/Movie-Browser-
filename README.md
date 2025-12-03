@@ -99,7 +99,80 @@ To preview the production build:
 npm run preview
 ```
 
-## 📁 Project Structure
+## � Deployment
+
+### Deploy to Vercel (Recommended)
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone)
+
+1. **Push to GitHub**
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit"
+   git remote add origin <your-github-repo-url>
+   git push -u origin main
+   ```
+
+2. **Deploy to Vercel**
+   - Go to [vercel.com](https://vercel.com) and sign up/login
+   - Click "New Project"
+   - Import your GitHub repository
+   - Vercel will auto-detect Vite configuration
+   - Add environment variables:
+     - `VITE_TMDB_API_KEY` = your TMDB API key
+     - `VITE_TMDB_BASE_URL` = `https://api.themoviedb.org/3`
+     - `VITE_TMDB_IMAGE_BASE_URL` = `https://image.tmdb.org/t/p`
+   - Click "Deploy"
+   - Your app will be live at `https://your-project.vercel.app`
+
+### Deploy to Netlify
+
+1. **Push to GitHub** (same as above)
+
+2. **Deploy to Netlify**
+   - Go to [netlify.com](https://netlify.com) and sign up/login
+   - Click "Add new site" → "Import an existing project"
+   - Connect to GitHub and select your repository
+   - Build settings:
+     - Build command: `npm run build`
+     - Publish directory: `dist`
+   - Add environment variables in Site settings → Environment variables
+   - Click "Deploy site"
+
+### Deploy to GitHub Pages
+
+1. **Install gh-pages**
+   ```bash
+   npm install --save-dev gh-pages
+   ```
+
+2. **Update package.json**
+   Add to scripts:
+   ```json
+   "predeploy": "npm run build",
+   "deploy": "gh-pages -d dist"
+   ```
+   Add homepage:
+   ```json
+   "homepage": "https://yourusername.github.io/repository-name"
+   ```
+
+3. **Update vite.config.js**
+   Add base path:
+   ```javascript
+   export default defineConfig({
+     base: '/repository-name/',
+     plugins: [react()]
+   })
+   ```
+
+4. **Deploy**
+   ```bash
+   npm run deploy
+   ```
+
+## �📁 Project Structure
 
 ```
 movie-browsing-website/
